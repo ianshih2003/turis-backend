@@ -28,34 +28,4 @@ app.use('/api/turista', authRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/guide', authRouteGuide)
 
-// Chat 
-
-// const instance_locator_id = 'v1:us1:d22b9637-d7b1-472d-b55b-a371e79f8b0b';
-// const chatkit_secret = 'f6b7348a-4e4d-413f-9868-c39427055302:ThzQLlIVgwfILWu9qlRv9MhepQCZInOI24sEylMJYQ0=';
-
-// const chatkit = new Chatkit.default({
-//     instanceLocator: `v1:us1:${instance_locator_id}`,
-//     key: chatkit_secret,
-// });
-
-
-//Pusher
-var Pusher = require('pusher');
-
-var channels_client = new Pusher({
-  appId: '862698',
-  key: '10c16690daf2f2d3896a',
-  secret: '8706804bb8a865283e46',
-  cluster: 'us2',
-  encrypted: true
-});
-
-channels_client.trigger('my-channel', 'my-event', {
-   "coords": {
-        "latitude": 0.34343,
-        "longitude": long
-             }
-  });
-
-
 app.listen(3000, () => console.log("Server up"));
