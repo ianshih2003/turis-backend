@@ -71,6 +71,11 @@ const GuideSchema = new mongoose.Schema({
         required: true
     },
 
+    date:{
+        type: Date,
+        default: Date.now
+    },
+
     geometry: GeoSchema
 });
 

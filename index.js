@@ -20,11 +20,13 @@ app.use(express.urlencoded({ extended: true}));
 
 //Importar Rutas
 const authRoute = require('./routes/auth');
+const authRouteGuide = require('./routes/authGuide')
 const postRoute = require('./routes/posts');
 
 //MiddleWare Ruta
 app.use('/api/turista', authRoute);
 app.use('/api/posts', postRoute);
+app.use('/api/guide', authRouteGuide)
 
 // Chat 
 

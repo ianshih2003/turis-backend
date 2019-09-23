@@ -6,7 +6,7 @@ module.exports = function(req,res,next){
 
     try{
         const verified = jwt.verify(token, process.env.JWT_KEY);
-        req.turista = verified;
+        req.body = verified;
         res.status(400).send('Valid Token, proceed');
         next();
     }catch(err){
