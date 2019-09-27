@@ -31,10 +31,9 @@ router.post('/register',async (req, res) =>{
         language3: req.body.language3, 
         country: req.body.country,       
         photo: req.body.photo,
+        description: req.body.description,
         hearing: req.body.hearing,
         country:req.body.country,
-        rating: req.body.rating,
-        available: req.body.rating
     });
     try{
         const savedGuide =  await guide.save();

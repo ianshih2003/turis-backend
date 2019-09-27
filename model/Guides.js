@@ -59,7 +59,7 @@ const GuideSchema = new mongoose.Schema({
 
     rating:{
         type: Number,
-        default: 0
+        required: false
     },
     available:{
         type: Boolean,
@@ -67,6 +67,11 @@ const GuideSchema = new mongoose.Schema({
     },
     
     photo:{
+        type: String,
+        required: true
+    },
+
+    description:{
         type: String,
         required: true
     },
