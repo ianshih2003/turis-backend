@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "turis backend build --output public"
-    
+    "build": "my-framework build --output public"
   },
   "keywords": [],
   "author": "",
