@@ -6,15 +6,6 @@ const bodyParser = require('body-parser');
 const Pusher = require('pusher');
 dotenv.config();
 
-
-var pusher = new Pusher({ // connect to pusher
-    appId: process.env.ID, 
-    key: process.env.KEY, 
-    secret:  process.env.SECRET,
-    cluster: process.env.CLUSTER, 
-  });
-
-
 //Connect to DB
 mongoose.connect(
   "mongodb+srv://Ian:fedeian1311@cluster0-7oyci.mongodb.net/test?retryWrites=true&w=majority", 
@@ -36,5 +27,44 @@ app.use('/api/posts', postRoute);
 app.use('/api/guide', authRouteGuide);
 app.use('/api/pusherReq', pusherRoute);
 app.use('/api/returnInfo', returnRoute);
+
+
+var pusher = new Pusher({ // connect to pusher
+    appId: process.env.ID, 
+    key: process.env.KEY, 
+    secret:  process.env.SECRET,
+    cluster: process.env.CLUSTER, 
+  });
+
+  router.get('/test', function(req, res, next){
+    console.log("everything ok");
+    res.send("hello world");
+    next();
+});
+
+
+// for authenticating users
+router.get("/pusher/auth", function(req, res) {
+  var query = req.query;
+  var socketId = query.socket_id;
+  var channel = query.channel_name;
+  var callback = query.callback;
+
+  var auth = JSON.stringify(pusher.authenticate(socketId, channel));
+  var cb = callback.replace(/\"/g,"") + "(" + auth + ");";
+
+  res.set({
+    "Content-Type": "application/javascript"
+  });
+
+  res.send(cb);
+});
+  
+router.post('/pusher/auth', function(req, res) {
+  var socketId = req.body.socket_id;
+  var channel = req.body.channel_name;
+  var auth = pusher.authenticate(socketId, channel);
+  res.send(auth);
+});
 
 app.listen(3000, () => console.log("Server up"));
