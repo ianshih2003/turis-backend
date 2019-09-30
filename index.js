@@ -16,7 +16,9 @@ var pusher = new Pusher({ // connect to pusher
 
 
 //Connect to DB
-mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true , useCreateIndex: true}, () => console.log('Conection Success'))
+mongoose.connect(
+  "mongodb+srv://Ian:fedeian1311@cluster0-7oyci.mongodb.net/test?retryWrites=true&w=majority", 
+  { useNewUrlParser: true , useCreateIndex: true}, () => console.log('Conection Success'))
 
 //MiddleWare
 app.use(bodyParser.json());
