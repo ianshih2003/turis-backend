@@ -12,7 +12,7 @@ app.get('/', function(req, res){
 });
 //Connect to DB
 mongoose.connect(
-  "mongodb+srv://Ian:fedeian1311@cluster0-7oyci.mongodb.net/test?retryWrites=true&w=majority", 
+  process.env.DB_CONNECT, 
   { useNewUrlParser: true , useCreateIndex: true}, () => console.log('Conection Success'))
 
 //MiddleWare
