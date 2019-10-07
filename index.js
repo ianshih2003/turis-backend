@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
+const httpServer = require('http').createServer(app);
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const Pusher = require('pusher');
+const io = require('socket.io')(httpServer);
+
 dotenv.config();
 
-app.get('/api/test', function(req, res){
-  res.send('<h1>Hello world</h1>');
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
 });
 
 //Connect to DB
@@ -32,38 +34,6 @@ app.use('/api/posts', postRoute);
 app.use('/api/guide', authRouteGuide);
 app.use('/api/returnInfo', returnRoute);
 
-
-var pusher = new Pusher({ // connect to pusher
-    appId: process.env.ID, 
-    key: process.env.KEY, 
-    secret:  process.env.SECRET,
-    cluster: process.env.CLUSTER, 
-  });
-
-  app.get('/test', function(req, res, next){
-    console.log("everything ok");
-    res.send("hello world");
-    next();
-});
-
-
-// for authenticating users
-app.get("/pusher/auth", function(req, res) {
-  var query = req.query;
-  var socketId = query.socket_id;
-  var channel = query.channel_name;
-  var callback = query.callback;
-
-  var auth = JSON.stringify(pusher.authenticate(socketId, channel));
-  var cb = callback.replace(/\"/g,"") + "(" + auth + ");";
-
-  res.set({
-    "Content-Type": "application/javascript"
-  });
-
-  res.send(cb);
-});
-  
 app.post('/pusher/auth', function(req, res) {
   var socketId = req.body.socket_id;
   var channel = req.body.channel_name;
@@ -71,4 +41,12 @@ app.post('/pusher/auth', function(req, res) {
   res.send(auth);
 });
 
-app.listen(3000, () => console.log("Server up"));
+//Sockets
+io.on('connection', function(socket)
+{
+  socket.on('passengerCoordinates', function(msg){
+    io.emit('driverSocket', msg);
+  })
+})
+
+httpServer.listen(3000, () => console.log("Server up"));

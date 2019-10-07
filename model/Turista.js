@@ -14,6 +14,7 @@ const GeoSchema = new mongoose.Schema({
     }
 });
 
+
 const turistaSchema = new mongoose.Schema({
     name:{
         type: String,
