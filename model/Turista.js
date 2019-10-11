@@ -24,13 +24,12 @@ const turistaSchema = new mongoose.Schema({
     },
     lastName:{
         type: String,
-        required: true
-       
+        required: true       
     },
 
     country:{
         type: String,
-        required: true
+        required: false
     },
     email:{
         type: String,
@@ -45,7 +44,7 @@ const turistaSchema = new mongoose.Schema({
     },
     language1:{
         type: String,
-        required: true
+        required: false
         
     },
     language2:{
@@ -60,13 +59,15 @@ const turistaSchema = new mongoose.Schema({
     
     photo:{
         type: String,
-        required: true
+        required: false
     },
 
     hearing:{
         type: String,
         required: false
     },
+
+    
 
     date:{
         type: Date, 

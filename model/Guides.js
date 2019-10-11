@@ -5,19 +5,19 @@ const GeoSchema = new mongoose.Schema({
     geometry:{
         type: String,
         default:"Point",
-        required: true
+        required: false
     },
     coordinates:{
         type: [Number],
         index: "2dsphere",
-        required: true
+        required: false
     }
 });
 
 const ratingSchema = new mongoose.Schema({
     rating:{
         type: Number,
-        required: true
+        required: false
     }
 })
 
@@ -36,7 +36,7 @@ const GuideSchema = new mongoose.Schema({
 
     country:{
         type: String,
-        required: true
+        required: false
     },
     email:{
         type: String,
@@ -51,7 +51,7 @@ const GuideSchema = new mongoose.Schema({
     },
     language1:{
         type: String,
-        required: true
+        required: false
         
     },
     language2:{
@@ -75,11 +75,16 @@ const GuideSchema = new mongoose.Schema({
     
     photo:{
         type: String,
-        required: true
+        required: false
     },
 
     description:{
         type: String,
+        required: true
+    },
+
+    dni:{
+        type:Number,
         required: true
     },
 

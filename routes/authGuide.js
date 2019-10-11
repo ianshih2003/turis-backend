@@ -34,10 +34,11 @@ router.post('/register',async (req, res) =>{
         description: req.body.description,
         hearing: req.body.hearing,
         country:req.body.country,
+        dni: req.body.dni
     });
     try{
         const savedGuide =  await guide.save();
-        res.send({guide: guide._id});
+        res.send(savedGuide);
     }
     catch(err){
         res.status(400).send(err);
