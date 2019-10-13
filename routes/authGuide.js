@@ -10,7 +10,7 @@ router.post('/register',async (req, res) =>{
 
     //Data validation
     const {error} = registerValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send("Faltan campos");
 
     //Check if user is already in db
     const emailExist = await Guides.findOne({email: req.body.email});    
@@ -41,7 +41,7 @@ router.post('/register',async (req, res) =>{
         res.send(savedGuide);
     }
     catch(err){
-        res.status(400).send(err);
+        res.status(400).send("No se pudo guardar el guia");
     }
 });
 

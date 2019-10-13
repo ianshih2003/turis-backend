@@ -12,9 +12,9 @@ const registerValidation = data => {
         language3: Joi.string(),
         country: Joi.string(),
         photo: Joi.string(),
-        description: Joi.string().required(),
+        description: Joi.string(),
         hearing: Joi.string(),
-        dni: Joi.number()
+        dni: Joi.number().required()
         
     };
 
