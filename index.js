@@ -68,4 +68,4 @@ app.use('/api/posts', postRoute);
 app.use('/api/guide', authRouteGuide);
 app.use('/api/returnInfo', returnRoute);
 
-httpServer.listen(3000, () => console.log("Server up"));
+server.listen(3000, () => console.log("Server up"));

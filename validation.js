@@ -7,13 +7,14 @@ const registerValidation = data => {
         lastName: Joi.string().required(),
         email: Joi.string().min(6).required().email(),
         password: Joi.string().required(),
-        language1: Joi.string(). required(),
-        language2: Joi.string().required(),
-        language3: Joi.string().required(),
-        country: Joi.string().required(),
-        photo: Joi.string().required(),
-        description: Joi.string().required(),
-        hearing: Joi.string().required()
+        language1: Joi.string(),
+        language2: Joi.string(),
+        language3: Joi.string(),
+        country: Joi.string(),
+        photo: Joi.string(),
+        description: Joi.string(),
+        hearing: Joi.string(),
+        dni: Joi.number().required()
         
     };
 
