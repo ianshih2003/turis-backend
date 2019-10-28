@@ -93,9 +93,19 @@ const GuideSchema = new mongoose.Schema({
         default: Date.now
     },
 
+    rating:{
+        type:Number,
+        required:false
+    },
+
+    token:{
+        type:String,
+        required:false
+    },
+
     geometry: GeoSchema,
 
-    rating: ratingSchema
+    
 });
 
 

@@ -10,7 +10,7 @@ router.post('/register',async (req, res) =>{
 
     //Data validation
     const {error} = registerValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send("Faltan Campos");
 
     //Check if user is already in db
     const emailExist = await Turista.findOne({email: req.body.email});    
@@ -26,19 +26,20 @@ router.post('/register',async (req, res) =>{
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashPassword,
-        language1: req.body.language1,
-        language2: req.body.language2,
-        language3: req.body.language3, 
-        country: req.body.country,       
-        photo: req.body.photo,
-        hearing: req.body.hearing,
+        dni: req.body.dni
+        // language1: req.body.language1,
+        // language2: req.body.language2,
+        // language3: req.body.language3, 
+        // country: req.body.country,       
+        // photo: req.body.photo,
+        // hearing: req.body.hearing,
     });
     try{
         const savedTurista =  await turista.save();
-        res.send({turista: turista._id});
+        res.send(savedTurista);
     }
     catch(err){
-        res.status(400).send(err);
+        res.status(400).send("New tourist couldn't be saved");
     }
 });
 
@@ -56,7 +57,7 @@ router.post('/login', async (req, res) => {
 
         //Create and assign a token
         const token = jwt.sign({_id: turista._id}, process.env.JWT_KEY);
-        res.header('auth-token', token).send(token);
+        res.header('token', token).send(token);
  
 });
 

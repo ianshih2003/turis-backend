@@ -26,22 +26,22 @@ router.post('/register',async (req, res) =>{
         lastName: req.body.lastName,
         email: req.body.email,
         password: hashPassword,
-        language1: req.body.language1,
-        language2: req.body.language2,
-        language3: req.body.language3, 
-        country: req.body.country,       
-        photo: req.body.photo,
-        description: req.body.description,
-        hearing: req.body.hearing,
-        country:req.body.country,
         dni: req.body.dni
+        // language1: req.body.language1,
+        // language2: req.body.language2,
+        // language3: req.body.language3, 
+        // country: req.body.country,       
+        // photo: req.body.photo,
+        // description: req.body.description,
+        // hearing: req.body.hearing,        
+        
     });
     try{
         const savedGuide =  await guide.save();
         res.send(savedGuide);
     }
     catch(err){
-        res.status(400).send("No se pudo guardar el guia");
+        res.status(400).send("New guide couldn't be saved");
     }
 });
 
@@ -59,7 +59,11 @@ router.post('/login', async (req, res) => {
 
         //Create and assign a token
         const token = jwt.sign({_id: guide._id}, process.env.JWT_KEY);
-        res.header('auth-token', token).send(token);
+        const success = await Guides.findOneAndUpdate(
+            {email: req.body.email},
+            {token: token},
+        )
+        res.header('token', token).send(token);
  
 });
 

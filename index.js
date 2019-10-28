@@ -12,6 +12,26 @@ dotenv.config();
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
+//Connect to DB
+mongoose.connect(
+  process.env.DB_CONNECT, 
+  { useNewUrlParser: true , useCreateIndex: true}, () => console.log('Conection Success'))
+
+//MiddleWare
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+
+//Importar Rutas
+const authRoute = require('./routes/auth');
+const authRouteGuide = require('./routes/authGuide')
+const postRoute = require('./routes/posts');
+const returnRoute = require('./routes/returnInfo');
+//MiddleWare Ruta
+app.use('/api/turista', authRoute);
+app.use('/api/posts', postRoute);
+app.use('/api/guide', authRouteGuide);
+app.use('/api/returnInfo', returnRoute);
 
 
 //sockets 
@@ -47,25 +67,6 @@ io.on("connection", socket => {
 
 });
 
-//Connect to DB
-mongoose.connect(
-  process.env.DB_CONNECT, 
-  { useNewUrlParser: true , useCreateIndex: true}, () => console.log('Conection Success'))
 
-//MiddleWare
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(morgan('dev'));
-
-//Importar Rutas
-const authRoute = require('./routes/auth');
-const authRouteGuide = require('./routes/authGuide')
-const postRoute = require('./routes/posts');
-const returnRoute = require('./routes/returnInfo');
-//MiddleWare Ruta
-app.use('/api/turista', authRoute);
-app.use('/api/posts', postRoute);
-app.use('/api/guide', authRouteGuide);
-app.use('/api/returnInfo', returnRoute);
 
 server.listen(3000, () => console.log("Server up"));
