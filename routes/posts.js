@@ -7,13 +7,13 @@ router.get('/guide', verify, async (req,res) => {
 
     try{
         const info = await Guide.find(
-            {email: req.body.email}, 
+            {email:req.body.email}, 
             {
                 name: 1, 
                 lastName: 1, 
-                email: 1,                   
-                dni: 1,             
-                _id: 1
+                rating: 1,                   
+                dni: 1            
+                
             });
         res.send(info);
     }
@@ -30,8 +30,7 @@ router.get('/tourist', verify, async (req,res) => {
             {email: req.body.email}, 
             {
                 name: 1, 
-                lastName: 1, 
-                email: 1,                   
+                lastName: 1,                 
                 dni: 1,             
                 _id: 1
             });

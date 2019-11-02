@@ -57,13 +57,15 @@ router.post('/login', async (req, res) => {
         const validPass = await bcrypt.compare(req.body.password, guide.password);
         if(!validPass) return res.status(400).send('Password wrong');
 
+        
+
         //Create and assign a token
-        const token = jwt.sign({_id: guide._id}, process.env.JWT_KEY);
-        const success = await Guides.findOneAndUpdate(
-            {email: req.body.email},
-            {token: token},
-        )
-        res.header('token', token).send(token);
+        const token = jwt.sign({_id: guide._id}, process.env.JWT_KEY);    
+            
+        res.header('token', token).send(token); 
+        
+    
+          
  
 });
 

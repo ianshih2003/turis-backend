@@ -14,12 +14,7 @@ const GeoSchema = new mongoose.Schema({
     }
 });
 
-const ratingSchema = new mongoose.Schema({
-    rating:{
-        type: Number,
-        required: false
-    }
-})
+
 
 const GuideSchema = new mongoose.Schema({
     name:{
@@ -93,9 +88,9 @@ const GuideSchema = new mongoose.Schema({
         default: Date.now
     },
 
-    rating:{
-        type:Number,
-        required:false
+    ratings: {
+        type: [Number],
+        default: []
     },
 
     token:{

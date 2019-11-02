@@ -42,7 +42,7 @@ io.on("connection", socket => {
   console.log("a user connected :D");
 
   socket.on("guideRequest", touristLocation => {
-    touristSocket = socket;
+    touristSocket = socket; 
     console.log("Someone is looking for a Guide");    //show in console when a tourist emit a guideRequest socket
     console.log(touristLocation);
     
