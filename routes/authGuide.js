@@ -10,7 +10,7 @@ router.post('/register',async (req, res) =>{
 
     //Data validation
     const {error} = registerValidation(req.body);
-    if(error) return res.status(400).send("Faltan campos");
+    if(error) return res.status(400).send("Missing fields");
 
     //Check if user is already in db
     const emailExist = await Guides.findOne({email: req.body.email});    
@@ -52,10 +52,10 @@ router.post('/login', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
         //Check if email doesnt exists
         const guide = await Guides.findOne({email: req.body.email});
-        if(!guide) return res.status(400).send('Email is wrong');
+        if(!guide) return res.status(400).send("Email doesn't exist");
         //Password is correct
         const validPass = await bcrypt.compare(req.body.password, guide.password);
-        if(!validPass) return res.status(400).send('Password wrong');
+        if(!validPass) return res.status(400).send('Incorrect password');
 
         
 

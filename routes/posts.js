@@ -6,8 +6,11 @@ const Tourist = require("../model/Turista");
 router.get('/guide', verify, async (req,res) => { 
 
     try{
+
+        const email = req.body.email
+        if(!email) return res.status(400).send("Missing fields");
         const info = await Guide.find(
-            {email:req.body.email}, 
+            {email:email}, 
             {
                 name: 1, 
                 lastName: 1, 
@@ -18,7 +21,7 @@ router.get('/guide', verify, async (req,res) => {
         res.send(info);
     }
     catch(err){
-        res.send("Me pego un tiro");
+        res.send("Random Error");
     }
     
 });
@@ -26,6 +29,8 @@ router.get('/guide', verify, async (req,res) => {
 router.get('/tourist', verify, async (req,res) => { 
 
     try{
+        const email = req.body.email
+        if(!email) return res.status(400).send("Missing fields");
         const info = await Tourist.find(
             {email: req.body.email}, 
             {
@@ -37,7 +42,7 @@ router.get('/tourist', verify, async (req,res) => {
         res.send(info);
     }
     catch(err){
-        res.send("Me pego un tiro");
+        res.send("Random Error");
     }
     
 });

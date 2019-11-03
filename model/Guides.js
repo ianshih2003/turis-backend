@@ -1,21 +1,6 @@
 const mongoose = require('mongoose');
 
 
-const GeoSchema = new mongoose.Schema({
-    geometry:{
-        type: String,
-        default:"Point",
-        required: false
-    },
-    coordinates:{
-        type: [Number],
-        index: "2dsphere",
-        required: false
-    }
-});
-
-
-
 const GuideSchema = new mongoose.Schema({
     name:{
         type: String,
@@ -96,9 +81,7 @@ const GuideSchema = new mongoose.Schema({
     token:{
         type:String,
         required:false
-    },
-
-    geometry: GeoSchema,
+    }
 
     
 });
