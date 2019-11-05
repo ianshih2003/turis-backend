@@ -1,19 +1,6 @@
 const mongoose = require('mongoose');
 
 
-const GeoSchema = new mongoose.Schema({
-    geometry:{
-        type: String,
-        default:"Point",
-        required: true
-    },
-    coordinates:{
-        type: [Number],
-        index: "2dsphere",
-        required: true
-    }
-});
-
 
 const turistaSchema = new mongoose.Schema({
     name:{
@@ -72,9 +59,7 @@ const turistaSchema = new mongoose.Schema({
     date:{
         type: Date, 
         default: Date.now
-    },
-
-    geometry: GeoSchema
+    }
 });
 
 

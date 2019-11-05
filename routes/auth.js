@@ -10,7 +10,7 @@ router.post('/register',async (req, res) =>{
 
     //Data validation
     const {error} = registerValidation(req.body);
-    if(error) return res.status(400).send("Faltan Campos");
+    if(error) return res.status(400).send("Missing fields");
 
     //Check if user is already in db
     const emailExist = await Turista.findOne({email: req.body.email});    
@@ -50,10 +50,10 @@ router.post('/login', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
         //Check if email doesnt exists
         const turista = await Turista.findOne({email: req.body.email});
-        if(!turista) return res.status(400).send('Email is wrong');
+        if(!turista) return res.status(400).send("Email doesn't exist");
         //Password is correct
         const validPass = await bcrypt.compare(req.body.password, turista.password);
-        if(!validPass) return res.status(400).send('Password wrong');
+        if(!validPass) return res.status(400).send('Incorrect password');
 
         //Create and assign a token
         const token = jwt.sign({_id: turista._id}, process.env.JWT_KEY);
