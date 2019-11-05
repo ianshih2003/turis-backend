@@ -3,7 +3,7 @@ const verify = require('./verifyToken');
 const Guide = require("../model/Guides");
 const Tourist = require("../model/Turista");
 
-router.get('/guide', verify, async (req,res) => { 
+router.post('/guide', verify, async (req,res) => { 
 
     try{
         const info = await Guide.find(
